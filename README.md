@@ -28,7 +28,7 @@ Codex、Open Claw 、WorkBuddy、Kimi Work、DouBao都行
 npm ci --prefix convert-wechat-article --ignore-scripts --no-audit --no-fund
 ```
 
-- 依赖版本由 `package-lock.json` 锁定；首次安装需要联网，转换时不联网；无需 Word、LibreOffice 或外部图床。
+依赖版本由 `package-lock.json` 锁定；首次安装需要联网，转换时不联网；无需 Word、LibreOffice 或外部图床。
 
 ## 使用说明
 
