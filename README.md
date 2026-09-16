@@ -18,15 +18,7 @@ Codex、Open Claw 、WorkBuddy、Kimi Work、DouBao都行
 
 也可以将仓库中的整个 `convert-wechat-article/` 子目录复制到智能体的技能目录。支持安装 Skill 的智能体负责自己安装；不能加载 Skill 的工具，可以读取该目录的 `SKILL.md` 并执行其程序。
 
-`agents/openai.yaml` 只提供客户端界面元数据，不参与转换。程序也可直接通过命令行使用。
-
-## 智能体兼容条件
-
-安装 Skill 只是提供指令和程序，首次运行需准备依赖。执行端必须能读取 DOCX、写入输出目录、运行 Python/Node 命令，并能安装锁定的 npm 依赖。纯聊天、不能执行命令或不提供文件访问的客户端不能直接使用。
-
-不绑定某一家模型；是否自动识别 Skill、能否安装依赖及运行脚本，由具体客户端和权限决定。没有逐一验证所有智能体。已有本地验证环境为 macOS；Linux 的 CI 配置需进行运行确认，Windows 尚未验证。含中文的公式还依赖系统可用的中文字形。
-
-## 安装运行依赖
+## 运行依赖
 
 需要 **Python 3.10+** 和 **Node.js 20.9+**。Python 只使用标准库，不需要 `pip install`；建议使用仍受维护的 Node.js LTS 版本。
 
@@ -38,20 +30,13 @@ npm ci --prefix convert-wechat-article --ignore-scripts --no-audit --no-fund
 
 - 依赖版本由 `package-lock.json` 锁定；首次安装需要联网，转换时不联网；无需 Word、LibreOffice 或外部图床。
 
-## 使用
+## 使用说明
 
 安装后对智能体说：
 
 ```text
 使用 convert-wechat-article，把这份 Word 全文转换为公众号图文。
 正文 17px，段后 24px，保留原图，完成自动校验后给我可整体复制的 HTML。
-```
-
-或在仓库根目录运行：
-
-```sh
-python3 convert-wechat-article/scripts/convert.py '/absolute/article.docx' --output './local-output/article-01'
-python3 convert-wechat-article/scripts/verify.py './local-output/article-01'
 ```
 
 每次转换请指定一个新的输出文件夹，由程序自动创建，避免覆盖旧结果。打开生成的 `article.html`，待图片加载完成，点 **Copy All**，粘贴到公众号正文；等待上传完成，再 **Save as draft** 并通过 **Preview** 查看效果。
@@ -67,30 +52,49 @@ python3 convert-wechat-article/scripts/verify.py './local-output/article-01'
 | 图片   | 无裁剪、旋转或颜色变换的内嵌 PNG/JPEG，保留文件字节                       |
 | 整篇复制 | 文字、公式图片、原图一次复制                                       |
 
-遇到无法转换的内容，程序会提示具体原因。详细说明见 [支持范围](convert-wechat-article/references/supported-inputs.md)。
-
-排版面向公众号统一样式，不复刻 Word 分页和所有字体装饰；第一段按标题处理。输入是 Word 原生公式，不是直接粘贴 LaTeX 的编辑器。
-
 ## 仓库结构
 
 ```text
-README.md
-LICENSE
-CHANGELOG.md
-docs/
-tests/run_checks.py
-.github/
 convert-wechat-article/
-  SKILL.md
-  LICENSE
-  VERSION
-  agents/
-  assets/
-  references/
-  scripts/
-  tests/
-  package.json
-  package-lock.json
+├── README.md
+├── LICENSE
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── .gitignore
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   └── workflows/
+│       └── tests.yml
+├── docs/
+│   ├── USAGE.md
+│   ├── PRIVACY.md
+│   └── VALIDATION.md
+├── tests/
+│   └── run_checks.py
+└── convert-wechat-article/
+    ├── SKILL.md
+    ├── VERSION
+    ├── LICENSE
+    ├── package.json
+    ├── package-lock.json
+    ├── agents/
+    │   └── openai.yaml
+    ├── assets/
+    │   └── page.html
+    ├── references/
+    │   └── supported-inputs.md
+    ├── scripts/
+    │   ├── convert.py
+    │   ├── extract.py
+    │   ├── omml.py
+    │   ├── render.cjs
+    │   ├── build_page.py
+    │   └── verify.py
+    └── tests/
+        ├── regression.py
+        └── page_unit.cjs
 ```
 
 ## 数据与隐私
