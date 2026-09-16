@@ -1,0 +1,16 @@
+{
+  "name": "convert-wechat-article-runtime",
+  "version": "1.0.1",
+  "private": true,
+  "description": "Pinned local math rendering runtime for the convert-wechat-article skill",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "dependencies": {
+    "mathjax-full": "3.2.1",
+    "sharp": "0.34.5"
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.9.12"
+  }
+}

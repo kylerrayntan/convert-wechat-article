@@ -1,0 +1,17 @@
+# Dependencies and local verification
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+.local-checks/
+local-output/
+test-output/
+dist/
+# Private documents and credentials
+*.docx
+*.doc
+*.pdf
+.env
+.env.*
+!.env.example
+.DS_Store
